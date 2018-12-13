@@ -3,6 +3,7 @@ package com.example.demo.controller
 import com.example.demo.dto.NotFoundException
 import com.example.demo.entity.Post
 import com.example.demo.service.PostService
+import io.swagger.annotations.ApiOperation
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
@@ -17,6 +18,7 @@ import java.util.Optional
 class PostController(
     val postService: PostService
 ) {
+    @ApiOperation(value = "投稿全件取得", notes = "投稿を全て取得します．", consumes = "application/json")
     @GetMapping("/", "")
     fun getPosts(): ResponseEntity<List<Post>> {
         return ResponseEntity.ok(postService.findAll())
