@@ -9,4 +9,5 @@ class BoardService(
     val boardsRepository: BoardRepository
 ) {
     fun findAll(): List<Board> = boardsRepository.findAll()
+    fun findOne(boardId: Int): Board = boardsRepository.getOne(boardId)
 }

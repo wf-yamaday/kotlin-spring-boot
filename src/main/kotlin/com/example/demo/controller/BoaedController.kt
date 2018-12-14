@@ -14,8 +14,11 @@ class BoaedController(
     val boardService: BoardService
 ) {
     @ApiOperation(value = "掲示板全件取得", notes = "掲示板を全て取得します．", consumes = "application/json")
-    @GetMapping("/","")
+    @GetMapping("/", "")
     fun getBoards(): ResponseEntity<List<Board>> {
         return ResponseEntity.ok(boardService.findAll())
+    }
+    fun getBoard(boardId: Int): ResponseEntity<Board> {
+        return ResponseEntity.ok(boardService.findOne(boardId))
     }
 }

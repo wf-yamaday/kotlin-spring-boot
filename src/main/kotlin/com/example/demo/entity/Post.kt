@@ -24,8 +24,10 @@ data class Post(
     var title: String,
     @Column(name = "body", nullable = true)
     var body: String,
-    @Column(name = "updated", nullable = false)
+    @Column(name = "updated_at", nullable = false)
     var updated: LocalDateTime = LocalDateTime.now(),
+    @Column(name = "created_at", nullable = false)
+    var created: LocalDateTime = LocalDateTime.now(),
     @JsonIgnore
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(nullable = false, insertable = false, updatable = false, name = "boards_id")
@@ -33,7 +35,7 @@ data class Post(
 ) : Serializable {
     @PrePersist
     fun prePersist() {
-        updated = LocalDateTime.now()
+        created = LocalDateTime.now()
     }
     @PreUpdate
     fun preUpdate() {

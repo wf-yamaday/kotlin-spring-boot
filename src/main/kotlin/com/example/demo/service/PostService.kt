@@ -12,4 +12,7 @@ class PostService(
     fun findAll(): List<Post> = postRepository.findAll()
     // Optional型はIDで見つけられなくてもnull処理できる
     fun findById(id: Int): Optional<Post> = postRepository.findById(id)
+    fun save(post: Post) {
+        postRepository.save(post)
+    }
 }
