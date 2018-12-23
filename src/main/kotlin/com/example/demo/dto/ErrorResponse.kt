@@ -6,8 +6,11 @@ import org.springframework.http.ResponseEntity
 class ErrorResponse(var message: String) {
 
     companion object {
-        fun createResponse(e: NotFoundException): ResponseEntity<ErrorResponse> {
+        fun createNotFoundResponse(e: NotFoundException): ResponseEntity<ErrorResponse> {
             return ResponseEntity<ErrorResponse>(ErrorResponse(e.errorMessage), HttpStatus.NOT_FOUND)
+        }
+        fun createBadReqestException(e: BadRequestException): ResponseEntity<ErrorResponse> {
+            return ResponseEntity<ErrorResponse>(ErrorResponse(e.errorMessage), HttpStatus.BAD_REQUEST)
         }
     }
 }
