@@ -1,8 +1,11 @@
 package com.example.demo.controller
 
+import com.example.demo.dto.BadRequestException
 import com.example.demo.dto.NotFoundException
 import com.example.demo.dto.post.PostResource
+import com.example.demo.entity.Board
 import com.example.demo.entity.Post
+import com.example.demo.service.BoardService
 import com.example.demo.service.PostService
 import io.swagger.annotations.ApiOperation
 import org.springframework.http.HttpStatus
@@ -21,7 +24,8 @@ import java.util.Optional
 @RestController
 @RequestMapping("/api/posts")
 class PostController(
-    val postService: PostService
+    val postService: PostService,
+    val boardService: BoardService
 ) {
     @ApiOperation(value = "投稿全件取得", notes = "投稿を全て取得します．", consumes = "application/json")
     @GetMapping("/", "")
@@ -37,10 +41,11 @@ class PostController(
     }
     @PostMapping("/", "")
     fun createPost(@Validated @RequestBody postResource: PostResource, errors: Errors): ResponseEntity<String> {
-//        if (errors.hasErrors()) throw エラーハンドリングする
-//        val inputPost: Post
-//        inputPost.copy(title = postResource.title, body = postResource.body, board = postResource.boardId)
-//        postService.save(inputPost)
+        if (errors.hasErrors()) throw BadRequestException("validation error")
+        val board = boardService.findOne(postResource.boardId)
+//        val post =
+//        post.modelMapper(postResource, board)
+//        postService.save()
         return ResponseEntity.ok("success")
     }
 }

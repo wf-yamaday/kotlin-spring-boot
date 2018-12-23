@@ -1,5 +1,6 @@
 package com.example.demo.entity
 
+import com.example.demo.dto.post.PostResource
 import com.fasterxml.jackson.annotation.JsonIgnore
 import java.io.Serializable
 import java.time.LocalDateTime
@@ -40,5 +41,8 @@ data class Post(
     @PreUpdate
     fun preUpdate() {
         updated = LocalDateTime.now()
+    }
+    fun modelMapper(postResource: PostResource, board: Board) : Post {
+        return Post(title = postResource.title, body = postResource.body, board = board)
     }
 }
