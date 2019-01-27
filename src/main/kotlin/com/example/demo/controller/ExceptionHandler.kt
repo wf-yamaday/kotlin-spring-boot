@@ -1,5 +1,6 @@
 package com.example.demo.controller
 
+import com.example.demo.dto.BadRequestException
 import com.example.demo.dto.ErrorResponse
 import com.example.demo.dto.NotFoundException
 import org.springframework.http.ResponseEntity
@@ -12,7 +13,12 @@ import javax.servlet.http.HttpServletRequest
 class ExceptionHandler {
 
     @ExceptionHandler(NotFoundException::class)
-    fun getException(req: HttpServletRequest, error: NotFoundException): ResponseEntity<ErrorResponse> {
-        return ErrorResponse.createResponse(error)
+    fun handleNotFoundException(req: HttpServletRequest, error: NotFoundException): ResponseEntity<ErrorResponse> {
+        return ErrorResponse.createNotFoundResponse(error)
+    }
+
+    @ExceptionHandler(BadRequestException::class)
+    fun handleBadRequestException(req: HttpServletRequest, error: BadRequestException): ResponseEntity<ErrorResponse> {
+        return ErrorResponse.createBadRequestException(error)
     }
 }

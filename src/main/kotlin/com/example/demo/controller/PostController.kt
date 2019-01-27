@@ -2,16 +2,15 @@ package com.example.demo.controller
 
 import com.example.demo.dto.NotFoundException
 import com.example.demo.dto.post.PostResource
-import com.example.demo.entity.Post
+import com.example.demo.model.entity.Post
 import com.example.demo.service.PostService
 import io.swagger.annotations.ApiOperation
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
-import org.springframework.validation.Errors
-import org.springframework.validation.annotation.Validated
+import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PatchMapping
 import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.ResponseStatus
@@ -35,12 +34,16 @@ class PostController(
             ResponseEntity.ok().body(postService.findById(id))
         } else throw NotFoundException("not found")
     }
-    @PostMapping("/", "")
-    fun createPost(@Validated @RequestBody postResource: PostResource, errors: Errors): ResponseEntity<String> {
-//        if (errors.hasErrors()) throw エラーハンドリングする
-//        val inputPost: Post
-//        inputPost.copy(title = postResource.title, body = postResource.body, board = postResource.boardId)
-//        postService.save(inputPost)
+
+    @PatchMapping("/{postId}")
+    fun updatePost(@PathVariable postId: Int, @RequestBody postResource: PostResource): ResponseEntity<String> {
+        postService.update(postId, postResource)
+        return ResponseEntity.ok("success")
+    }
+
+    @DeleteMapping("/{postId}")
+    fun delete(@PathVariable postId: Int): ResponseEntity<String> {
+        postService.delete(postId)
         return ResponseEntity.ok("success")
     }
 }

@@ -1,11 +1,13 @@
-package com.example.demo.entity
+package com.example.demo.model.entity
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import java.io.Serializable
 import java.time.LocalDateTime
 import javax.persistence.Column
 import javax.persistence.Entity
 import javax.persistence.FetchType
 import javax.persistence.GeneratedValue
+import javax.persistence.GenerationType
 import javax.persistence.Id
 import javax.persistence.OneToMany
 import javax.persistence.PrePersist
@@ -16,18 +18,20 @@ import javax.persistence.Table
 @Table(name = "boards")
 data class Board(
     @Id
-    @GeneratedValue
-    var id: Int = 0,
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    var id: Int? = null,
     @Column(name = "title")
-    var title: String,
+    var title: String = "",
     @Column(name = "description")
-    var description: String,
+    var description: String = "",
     @Column(name = "created_at")
     var created: LocalDateTime = LocalDateTime.now(),
     @Column(name = "updated_at")
     var updated: LocalDateTime = LocalDateTime.now(),
+
     @OneToMany(mappedBy = "board", fetch = FetchType.EAGER)
-    var posts: List<Post>
+    @JsonIgnore
+    var posts: List<Post>? = null
 ) : Serializable {
     @PrePersist
     fun prePersist() {
