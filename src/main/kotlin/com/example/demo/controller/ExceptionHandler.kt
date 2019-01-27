@@ -18,9 +18,7 @@ class ExceptionHandler {
     }
 
     @ExceptionHandler(BadRequestException::class)
-    fun handleBadRequestException(req: HttpServletRequest, error: BadRequestException) : ResponseEntity<ErrorResponse> {
-        return ErrorResponse.createBadReqestException(error)
+    fun handleBadRequestException(req: HttpServletRequest, error: BadRequestException): ResponseEntity<ErrorResponse> {
+        return ErrorResponse.createBadRequestException(error)
     }
-
-
 }
