@@ -1,5 +1,6 @@
 package com.example.demo
 
+import com.example.demo.service.UserDetailsServiceImp
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder
@@ -11,7 +12,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 
 @Configuration
 @EnableWebSecurity
-class WebSecurityConfig: WebSecurityConfigurerAdapter(
+class WebSecurityConfig
+    constructor(val userService: UserDetailsServiceImp): WebSecurityConfigurerAdapter(
 
 ) {
 
@@ -36,7 +38,7 @@ class WebSecurityConfig: WebSecurityConfigurerAdapter(
     }
 
     fun configureAuth(auth: AuthenticationManagerBuilder) {
-        auth.userDetailsService()
+        auth.userDetailsService(userService)
             .passwordEncoder(bCryptPasswordEncoder())
     }
 
