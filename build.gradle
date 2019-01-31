@@ -44,6 +44,10 @@ repositories {
 
 configurations {
     ktlint
+    developmentOnly
+    runtimeClasspath {
+        extendsFrom developmentOnly
+    }
 }
 
 dependencies {
@@ -58,8 +62,7 @@ dependencies {
     compile "io.springfox:springfox-swagger2:2.9.2"
     compile "io.springfox:springfox-swagger-ui:2.9.2"
     compile group: 'com.googlecode.log4jdbc', name: 'log4jdbc', version: '1.2'
-
-
+    developmentOnly("org.springframework.boot:spring-boot-devtools")
 
 }
 
