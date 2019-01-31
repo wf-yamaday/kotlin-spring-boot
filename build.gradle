@@ -44,6 +44,9 @@ repositories {
 
 configurations {
     ktlint
+    all {
+        exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
+    }
 }
 
 dependencies {
@@ -56,10 +59,13 @@ dependencies {
     testImplementation('org.springframework.boot:spring-boot-starter-test')
     ktlint "com.github.shyiko:ktlint:0.29.0"
     // https://mvnrepository.com/artifact/io.springfox/springfox-swagger2
-    compile "io.springfox:springfox-swagger2:2.7.0"
+    compile "io.springfox:springfox-swagger2:2.9.2"
     // https://mvnrepository.com/artifact/io.springfox/springfox-swagger-ui
-    compile "io.springfox:springfox-swagger-ui:2.7.0"
+    compile "io.springfox:springfox-swagger-ui:2.9.2"
 //    compile 'org.springframework.boot:spring-boot-starter-log4j2'
+    // https://mvnrepository.com/artifact/com.fasterxml.jackson.dataformat/jackson-dataformat-yaml
+    compile group: 'com.fasterxml.jackson.dataformat', name: 'jackson-dataformat-yaml', version: '2.9.8'
+
 
 
 }
