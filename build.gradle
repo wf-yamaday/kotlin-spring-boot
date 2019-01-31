@@ -44,6 +44,10 @@ repositories {
 
 configurations {
     ktlint
+    developmentOnly
+    runtimeClasspath {
+        extendsFrom developmentOnly
+    }
 }
 
 dependencies {
@@ -55,10 +59,10 @@ dependencies {
     runtimeOnly('mysql:mysql-connector-java')
     testImplementation('org.springframework.boot:spring-boot-starter-test')
     ktlint "com.github.shyiko:ktlint:0.29.0"
-    // https://mvnrepository.com/artifact/io.springfox/springfox-swagger2
-    compile "io.springfox:springfox-swagger2:2.6.0"
-    // https://mvnrepository.com/artifact/io.springfox/springfox-swagger-ui
-    compile "io.springfox:springfox-swagger-ui:2.6.0"
+    compile "io.springfox:springfox-swagger2:2.9.2"
+    compile "io.springfox:springfox-swagger-ui:2.9.2"
+    compile group: 'com.googlecode.log4jdbc', name: 'log4jdbc', version: '1.2'
+    developmentOnly("org.springframework.boot:spring-boot-devtools")
 
 }
 

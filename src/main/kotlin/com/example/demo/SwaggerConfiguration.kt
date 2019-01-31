@@ -3,6 +3,7 @@ package com.example.demo
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import springfox.documentation.builders.ApiInfoBuilder
+import springfox.documentation.builders.PathSelectors
 import springfox.documentation.builders.RequestHandlerSelectors
 import springfox.documentation.service.ApiInfo
 import springfox.documentation.service.Contact
@@ -19,6 +20,7 @@ class SwaggerConfiguration {
             .groupName("api")
             .select()
             .apis(RequestHandlerSelectors.basePackage("com.example.demo.controller"))
+            .paths(PathSelectors.any())
             .build()
             .apiInfo(apiInfo())
     }
