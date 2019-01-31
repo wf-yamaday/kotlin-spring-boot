@@ -16,5 +16,4 @@ data class User(
     @JsonIgnore
     @Column(name = "password")
     var password: String
-) : Serializable {
-}
+) : Serializable
