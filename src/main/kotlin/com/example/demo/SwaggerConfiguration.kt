@@ -15,14 +15,14 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2
 @EnableSwagger2
 class SwaggerConfiguration {
     @Bean
-    open fun api(): Docket {
+    fun api(): Docket {
         return Docket(DocumentationType.SWAGGER_2)
             .groupName("api")
             .select()
             .apis(RequestHandlerSelectors.basePackage("com.example.demo.controller"))
             .paths(PathSelectors.any())
             .build()
-//            .apiInfo(apiInfo())
+            .apiInfo(apiInfo())
     }
 
     private fun apiInfo(): ApiInfo {
