@@ -12,8 +12,8 @@ import javax.persistence.Table
 data class User(
     @Id
     @Column(name = "user_id")
-    var userId: String,
+    var userId: String = "",
     @JsonIgnore
     @Column(name = "password")
-    var password: String
+    var password: String = ""
 ) : Serializable

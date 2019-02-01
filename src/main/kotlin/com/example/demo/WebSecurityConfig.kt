@@ -1,5 +1,8 @@
 package com.example.demo
 
+import com.example.demo.helper.jwt.JWTAuthenticationFilter
+import com.example.demo.helper.jwt.JWTAuthorizationFilter
+import com.example.demo.helper.jwt.SIGN_UP_URL
 import com.example.demo.service.UserDetailsServiceImpl
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Bean
@@ -14,25 +17,30 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 
 @Configuration
 @EnableWebSecurity
-class WebSecurityConfig
-    constructor(val userService: UserDetailsServiceImpl) : WebSecurityConfigurerAdapter() {
+class WebSecurityConfig(val userDetailsService: UserDetailsServiceImpl) : WebSecurityConfigurerAdapter() {
+
     override fun configure(web: WebSecurity) {
         web.ignoring().antMatchers(
             "/**/favicon.ico",
             "/images/**",
             "/css/**",
             "/javascript/**",
-            "/webjars/**"
+            "/webjars/**",
+            "/swagger-resources/**",
+            "/swagger-ui.html",
+            "/v2/api-docs"
         )
     }
 
     override fun configure(http: HttpSecurity) {
 
         http.authorizeRequests()
-            .antMatchers("/auth").permitAll()
+            .antMatchers(SIGN_UP_URL, "/api/user", "/login").permitAll()
             .anyRequest().authenticated()
             .and().logout()
             .and().csrf().disable()
+            .addFilter(JWTAuthenticationFilter(authenticationManager()))
+            .addFilter(JWTAuthorizationFilter(authenticationManager()))
             .sessionManagement()
             .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
     }
@@ -40,8 +48,9 @@ class WebSecurityConfig
     @Throws(Exception::class)
     @Autowired
     fun configureAuth(auth: AuthenticationManagerBuilder) {
-        auth.userDetailsService(userService)
-            .passwordEncoder(bCryptPasswordEncoder())
+        auth!!.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder())
+//        auth.userDetailsService(userDetailsService)
+//            .passwordEncoder(bCryptPasswordEncoder())
     }
 
     @Bean
