@@ -11,3 +11,4 @@ logging:
   level:
     jdbc:
       sqltiming: DEBUG
+

@@ -1,4 +1,4 @@
-package com.example.demo
+package com.example.demo.config
 
 import com.example.demo.helper.jwt.JWTAuthenticationFilter
 import com.example.demo.helper.jwt.JWTAuthorizationFilter
@@ -48,9 +48,7 @@ class WebSecurityConfig(val userDetailsService: UserDetailsServiceImpl) : WebSec
     @Throws(Exception::class)
     @Autowired
     fun configureAuth(auth: AuthenticationManagerBuilder) {
-        auth!!.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder())
-//        auth.userDetailsService(userDetailsService)
-//            .passwordEncoder(bCryptPasswordEncoder())
+        auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder())
     }
 
     @Bean
