@@ -15,17 +15,17 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher
 import java.io.IOException
-import java.util.*
+import java.util.Date
 import javax.servlet.FilterChain
 import javax.servlet.ServletException
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
 class JWTAuthenticationFilter(authenticationManager: AuthenticationManager) : UsernamePasswordAuthenticationFilter() {
-    private val LOGGER : Logger = LoggerFactory.getLogger(JWTAuthenticationFilter::class.java)
+    private val LOGGER: Logger = LoggerFactory.getLogger(JWTAuthenticationFilter::class.java)
 
     private var bCryptPasswordEncoder = BCryptPasswordEncoder()
-    init{
+    init {
         this.authenticationManager = authenticationManager
         this.bCryptPasswordEncoder = bCryptPasswordEncoder
         setRequiresAuthenticationRequestMatcher(AntPathRequestMatcher(SIGN_UP_URL, "POST"))
@@ -48,10 +48,10 @@ class JWTAuthenticationFilter(authenticationManager: AuthenticationManager) : Us
     override fun successfulAuthentication(request: HttpServletRequest, response: HttpServletResponse, chain: FilterChain?, authResult: Authentication) {
         println("success handler")
         val JWT = Jwts.builder()
-            .setSubject((authResult.principal as org.springframework.security.core.userdetails.User).username)
-            .setExpiration(Date(System.currentTimeMillis() +  EXPIRATION_TIME))
-            .signWith(SignatureAlgorithm.HS512, SECRET)
-            .compact()
+                .setSubject((authResult.principal as org.springframework.security.core.userdetails.User).username)
+                .setExpiration(Date(System.currentTimeMillis() + EXPIRATION_TIME))
+                .signWith(SignatureAlgorithm.HS512, SECRET)
+                .compact()
         response.addHeader(HEADER_STRING, TOKEN_PREFIX + " " + JWT)
     }
 }

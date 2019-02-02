@@ -17,10 +17,7 @@ class UserController(
 ) {
 
     @PostMapping("/auth")
-    fun auth(@RequestBody userResource: UserResource) {
-
-    }
-
+    fun auth(@RequestBody userResource: UserResource) {}
 
     @PostMapping("/users")
     fun save(@RequestBody userResource: UserResource): ResponseEntity<String> {
@@ -28,5 +25,4 @@ class UserController(
         userService.save(userResource)
         return ResponseEntity.ok("success")
     }
-
 }

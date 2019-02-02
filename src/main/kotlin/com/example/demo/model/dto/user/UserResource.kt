@@ -9,4 +9,3 @@ data class UserResource(
     @NotBlank
     var password: String = ""
 ) : Serializable
-
