@@ -1,6 +1,7 @@
 spring:
+  profiles: dev
   datasource:
-    url: jdbc:log4jdbc:mysql://localhost:3306/kotlin
+    url: jdbc:log4jdbc:mysql://localhost:3316/kotlin
      # mysql username & password
     driver-class-name: net.sf.log4jdbc.DriverSpy
     username: ${SPRING_DATASOURCE_USERNAME}
@@ -12,3 +13,6 @@ logging:
     jdbc:
       sqltiming: DEBUG
 
+---
+spring:
+  profiles: dev-docker

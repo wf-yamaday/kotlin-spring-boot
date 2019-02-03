@@ -1,7 +1,6 @@
 FROM ubuntu:16.04
 
-RUN apt-get update
-RUN apt-get -y install openjdk-8-jdk
+RUN apt-get update && apt-get -y install openjdk-8-jdk
 ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64
 
 

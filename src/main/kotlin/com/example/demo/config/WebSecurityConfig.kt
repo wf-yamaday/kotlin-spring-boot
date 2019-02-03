@@ -35,7 +35,7 @@ class WebSecurityConfig(val userDetailsService: UserDetailsServiceImpl) : WebSec
     override fun configure(http: HttpSecurity) {
 
         http.authorizeRequests()
-            .antMatchers(SIGN_UP_URL, "/api/user", "/login").permitAll()
+            .antMatchers(SIGN_UP_URL, "/api/users", "/login").permitAll()
             .anyRequest().authenticated()
             .and().logout()
             .and().csrf().disable()
